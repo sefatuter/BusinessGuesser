@@ -4,9 +4,8 @@ from sklearn.ensemble import RandomForestClassifier
 import streamlit as st
 
 @st.cache_data
-def train_model(data_path):
+def train_model(data):
     # Load and process data
-    data = pd.read_csv(data_path)
     data['NumCompaniesWorked'].fillna(data['NumCompaniesWorked'].mean(), inplace=True)
     data['TotalWorkingYears'].fillna(data['TotalWorkingYears'].mean(), inplace=True)
     
@@ -22,6 +21,7 @@ def train_model(data_path):
     model.fit(X_train, y_train)
     
     return model, X.columns.tolist()
+
 
 def main():
     st.markdown(
@@ -70,10 +70,14 @@ def main():
     
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     if uploaded_file is not None:
-        data = pd.read_csv(uploaded_file)
-        model, feature_columns = train_model(data)
-        st.write("Model trained successfully!")
-        st.write(f"Features used: {feature_columns}")
+        try:
+            data = pd.read_csv(uploaded_file)
+            model, feature_columns = train_model(data)
+            st.write("Model trained successfully!")
+            st.write(f"Features used: {feature_columns}")
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
+
         
         user_input = {}
         columns = st.columns(3)
