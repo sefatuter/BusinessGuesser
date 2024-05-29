@@ -1,6 +1,4 @@
-"[server]
+[server]
 headless = true
-enableCORS=false
-port = $PORT
+port = 8510
 enableCORS = false
-"
