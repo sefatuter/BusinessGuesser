@@ -1,7 +1,7 @@
-mkdir -p ~/.streamlit
+mkdir -p %SefaPc%/.streamlit
 
 echo "[server]
 headless = true
 port = $PORT
 enableCORS = false
-" > ~/.streamlit/config.toml
+" > %SefaPc%/.streamlit/config.toml
