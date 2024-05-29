@@ -1,1 +1,1 @@
-"[server]headless = trueenableCORS = falseport = \$PORT" 
+"[server]headless = trueenableCORS = falseport = $PORT" 
