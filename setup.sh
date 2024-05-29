@@ -1,1 +1,12 @@
-"[server] headless = true enableCORS=false port = $PORT enableCORS = false"
+mkdir -p ~/.streamlit/
+
+echo "[general]
+email = \"your-email@domain.com\"
+" > ~/.streamlit/credentials.toml
+
+echo "[server]
+headless = true
+enableCORS=false
+port = $PORT
+enableCORS = false
+" > ~/.streamlit/config.toml
