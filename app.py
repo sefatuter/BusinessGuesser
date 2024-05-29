@@ -68,27 +68,25 @@ def main():
     
     st.title("Employee Attrition Prediction")
     
-    # Load the trained model
-    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")  # Update the data path
+    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     if uploaded_file is not None:
         data = pd.read_csv(uploaded_file)
         model, feature_columns = train_model(data)
         st.write("Model trained successfully!")
         st.write(f"Features used: {feature_columns}")
-
-    # Input fields
-    user_input = {}
-    columns = st.columns(3)
-    for i, feature in enumerate(feature_columns):
-        with columns[i % 3]:
-            if feature in ['Age', 'DistanceFromHome', 'Education', 'JobLevel', 'MonthlyIncome', 
-                           'NumCompaniesWorked', 'PercentSalaryHike', 'StandardHours', 
-                           'StockOptionLevel', 'TotalWorkingYears', 'TrainingTimesLastYear', 
-                           'YearsAtCompany', 'YearsSinceLastPromotion', 'YearsWithCurrManager']:
-                user_input[feature] = st.number_input(f'{feature}', min_value=0, step=1, value=1)
-            elif feature in data.columns:  # Only consider categorical features that exist in the original data
-                unique_values = data[feature].unique().tolist()
-                user_input[feature] = st.selectbox(f'{feature}', unique_values)
+        
+        user_input = {}
+        columns = st.columns(3)
+        for i, feature in enumerate(feature_columns):
+            with columns[i % 3]:
+                if feature in ['Age', 'DistanceFromHome', 'Education', 'JobLevel', 'MonthlyIncome', 
+                               'NumCompaniesWorked', 'PercentSalaryHike', 'StandardHours', 
+                               'StockOptionLevel', 'TotalWorkingYears', 'TrainingTimesLastYear', 
+                               'YearsAtCompany', 'YearsSinceLastPromotion', 'YearsWithCurrManager']:
+                    user_input[feature] = st.number_input(f'{feature}', min_value=0, step=1, value=1)
+                elif feature in data.columns:
+                    unique_values = data[feature].unique().tolist()
+                    user_input[feature] = st.selectbox(f'{feature}', unique_values)
     
     st.markdown("---")
     col1, col2 = st.columns([1, 2])
